@@ -1,20 +1,17 @@
-
 import {
     Routes, Route,
     Navigate
 } from 'react-router-dom';
+import { Navbar } from '../components/Navbar';
+import { Employees } from '../components/Employees';
 
-
-import Game from '../componentes/juego/Game';
-import NavBar from '../componentes/navBar/NavBar';
-
-export const RutasPrivadas = () => {
+export const DashboardRoutes = () => {
     return ( 
         <>
-            <NavBar  />
+            <Navbar />
             <div>
                 <Routes>
-                    <Route path="/" element={<Game />} />
+                    <Route path="/" element={<Employees />} />
                     <Route path='*' element={<Navigate to="/" />} />
                 </Routes>
             </div>

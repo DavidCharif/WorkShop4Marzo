@@ -5,8 +5,9 @@ import {
     Route,
 } from 'react-router-dom';
 import Main from "../componentes/main/Main";
+import NavBar from "../componentes/navBar/NavBar";
+import { Registro } from "../componentes/registro/Registro";
 
-import { Registro } from '../components/Registro';
 import { RutasPrivadas } from './RutasPrivadas';
 
 
@@ -14,6 +15,8 @@ export const AppRouter = () => {
 
 
     return (
+        <>
+        <NavBar  />
         <BrowserRouter>
             <Routes>
 
@@ -25,5 +28,6 @@ export const AppRouter = () => {
 
             </Routes>
         </BrowserRouter>
+        </>
     )
 }
