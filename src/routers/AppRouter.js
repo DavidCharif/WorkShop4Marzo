@@ -1,33 +1,74 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     BrowserRouter,
     Routes,
     Route,
 } from 'react-router-dom';
-import Main from "../componentes/main/Main";
-import NavBar from "../componentes/navBar/NavBar";
-import { Registro } from "../componentes/registro/Registro";
 
-import { RutasPrivadas } from './RutasPrivadas';
+
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from "./PublicRoute";
+import { useDispatch } from 'react-redux';
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+
+import { RutasPrivadas } from "./RutasPrivadas";
+import Login from "../componentes/login/Login";
+import { Registro } from "../componentes/registro/Registro";
+import { loginEmailPassword } from "../componentes/redux/actions/actionLogin";
 
 
 export const AppRouter = () => {
 
+    const dispatch = useDispatch();
+
+    const [checking, setChecking] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user?.uid) {
+                console.log(user)
+                dispatch(loginEmailPassword(user.uid, user.displayName));
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
+            }
+            setChecking(false);
+        });
+    }, [dispatch, setChecking, setIsLoggedIn])
+
+    if (checking) {
+        return (
+            <h1>Espere...</h1>
+        )
+    }
+
 
     return (
-        <>
-        <NavBar  />
         <BrowserRouter>
             <Routes>
 
-                <Route path="/" element={<Main/> } />
+                <Route path="/login" element={
+                    <PublicRoute isAuthenticated={isLoggedIn}>
+                        <Login />
+                    </PublicRoute>
+                } />
 
-                <Route path="/registro" element={<Registro/>} />
+                <Route path="/registro" element={
+                    <PublicRoute isAuthenticated={isLoggedIn}>
+                        <Registro />
+                    </PublicRoute>
+                } />
 
-                <Route path="/*" element={<RutasPrivadas/>}/>
+                <Route path="/*" element={
+                    <PrivateRoute isAuthenticated={isLoggedIn}>
+                        <RutasPrivadas />
+                    </PrivateRoute>}
+                />
+
 
             </Routes>
         </BrowserRouter>
-        </>
     )
 }
