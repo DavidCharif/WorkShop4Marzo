@@ -25,7 +25,7 @@ export const Registro = () => {
 
     const handleRegistro = (e) => {
         e.preventDefault();
-        
+        console.log('entro a registro')
         dispatch(registroEmailPasswordNombre(correo,contrasena,nombre, urlImg))
     }
 
