@@ -1,5 +1,5 @@
 
-import {  getAuth, signInWithPopup,signInWithEmailAndPassword } from "firebase/auth";
+import {  getAuth, signInWithPopup,signInWithEmailAndPassword , signOut} from "firebase/auth";
 import { google } from '../../../firebase/firebaseConfig';
 import { typesLogin } from "../types/types";
 
@@ -48,4 +48,23 @@ export const loginSincrono = (id, displayname) => {
     }
 }
 
+export const actionLogout = () => {
+   return {
+    type: typesLogin.logout
+  }
+}
 
+export const logout = () => {
+
+  
+      const auth = getAuth();
+      console.log("login ouuttt")
+      signOut(auth)
+      .then(user => {
+         console.log(user);
+      })
+      .catch(error => {
+          console.log(error);
+      })
+
+}

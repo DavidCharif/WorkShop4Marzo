@@ -27,8 +27,9 @@ export const AppRouter = () => {
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
+            console.log('usuario no existe', user)
             if (user?.uid) {
-                console.log(user)
+                console.log('usiario existe')
                 dispatch(loginEmailPassword(user.uid, user.displayName));
                 setIsLoggedIn(true);
             } else {

@@ -14,8 +14,8 @@ export const RutasPrivadas = () => {
             <NavBar  />
             <div>
                 <Routes>
-                    <Route path="/" element={<Game />} />
-                    <Route path='*' element={<Navigate to="/" />} />
+                    <Route path="/game" element={<Game />} />
+                    <Route path='*' element={<Navigate to="/game" />} />
                 </Routes>
             </div>
 
