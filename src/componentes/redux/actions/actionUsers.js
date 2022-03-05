@@ -31,21 +31,31 @@ export const listUserAsync = () => {
   return async (dispatch) => {
 
       const querySnapshot = await getDocs(collection(db, "usuarios"));
-      const usuarios = [];
+      const obj = {
+        usuarios : [],
+        ids : []
+      }
+      
       querySnapshot.forEach((doc) => {
-        console.log('doc', doc)
-          usuarios.push({
+       
+          obj.usuarios.push({
               ...doc.data()
           })
+          obj.ids.push(doc.id)
+       
       });
-      dispatch(listSync(usuarios));
+      dispatch(listSync(obj));
   }
 }
 
 export const listSync = (users) => {
+  console.log('users', users)
   return {
       type: typesUsers.list,
-      payload: users
+      payload: {
+        users: users.usuarios,
+        ids: users.ids
+      }
   }
 }
 export const editarSinc = (user) => {

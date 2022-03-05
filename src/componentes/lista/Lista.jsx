@@ -13,6 +13,7 @@ import { Flex } from "../../styles/styles";
 export const List = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((store) => store.users);
+  console.log('users de la store', users)
   const [edit, setEdit] = useState({});
   const [usuarios, setUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -41,7 +42,7 @@ export const List = () => {
   // unsubscribe()
 
   const handleEdit = (index, users) => {
-    console.log(users[index]);
+    console.log(users);
     setEdit({
       user: users[index],
       id:index
@@ -92,11 +93,12 @@ export const List = () => {
 
   useEffect(() => {
     if (usuarios.length === 0) {
-      setUsuarios(users);
+      // let users = state.users
+      // setUsuarios(users);
       setIsLoading(false);
     }
-    console.log("usuarios", usuarios);
-  }, [usuarios, users]);
+    console.log("usERS", usuarios);
+  }, [usuarios]);
   // const handleSubmit = (e) => {
   //   e.preventDefault()
   //   console.log('busqueda', busqueda)

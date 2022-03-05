@@ -2,7 +2,8 @@ import {  typesUsers } from "../types/types";
 
 
 const initialState = {
-  users : []
+  users : [],
+  ids:[]
 }
 
 
@@ -11,10 +12,15 @@ export const usersReducers = (state = initialState, action) => {
        
         case typesUsers.list:
             return {
-              users: [...action.payload]
+              state : {
+                users:[...action.payload.users],
+                ids: action.payload.ids
+              }
+              
             }
         case typesUsers.delete:
             return {
+              ...state,
               users: state.users.filter(emp => emp.correo !== action.payload)
             }
         case typesUsers.edit:
