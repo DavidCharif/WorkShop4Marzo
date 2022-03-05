@@ -33,6 +33,7 @@ export const listUserAsync = () => {
       const querySnapshot = await getDocs(collection(db, "usuarios"));
       const usuarios = [];
       querySnapshot.forEach((doc) => {
+        console.log('doc', doc)
           usuarios.push({
               ...doc.data()
           })
@@ -54,7 +55,7 @@ export const editarSinc = (user) => {
   }
 }
 
-export const editAsyn = (email, usuario) => {
+export const editAsyn = (email, usuario, index) => {
   return async (dispatch) => {
       const traerCollection = collection(db, 'usuarios')
       const q = query(traerCollection, where('email', '==', email))
@@ -69,18 +70,18 @@ export const editAsyn = (email, usuario) => {
       const docRef = doc(db, 'usuarios', id)
       await updateDoc(docRef, usuario)
       .then(() => listUserAsync())
-      dispatch(editSyn(usuario))
+      dispatch(editSyn(usuario, index))
   }
 }
 
-export const editSyn = (usuario) => {
+export const editSyn = (usuario, id) => {
   console.log('Entramos con el usuario' , usuario)
   return  {
       type: typesUsers.edit,
-      payload : usuario
-      // payload: {
-      //   id:id,
-      //   user:user
-      // }
+    
+      payload: {
+        id:id,
+        user:usuario
+      }
   }
 }

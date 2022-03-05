@@ -4,7 +4,8 @@ const initialState = {
   "name":'',
   "correo": '',
   'urlImg' : '',
-  'contrasena ' : ''
+  'contrasena ' : '',
+  
 }
 
 export const reducerRegister  = (state={initialState}, action) =>{

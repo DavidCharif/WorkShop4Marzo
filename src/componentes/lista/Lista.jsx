@@ -48,6 +48,9 @@ export const List = () => {
     });
     setIndex(index)
   };
+  const handleDispatch = (index) => {
+    enviarDispatch(index)
+  };
 
   const handleInput = ({ target }) => {
     let value = target.value;
@@ -73,14 +76,14 @@ export const List = () => {
         }
       }))
       
-      enviarDispatch()
+      
     };
 
-  const enviarDispatch = () => {
+  const enviarDispatch = (id) => {
 
     const user = edit.user
     console.log(user);
-    dispatch(editAsyn(user.email, user))
+    dispatch(editAsyn(user.email, user, id))
   }
   
   useEffect(() => {
@@ -110,6 +113,7 @@ export const List = () => {
             
             <input type="text" placeholder={values.email} name="email" value={values.email} onChange={handleInputChange}></input>
             <button type="button" onClick={handleChangeEdit}>Actualizar datos</button>
+            <button type="button" onClick={handleDispatch}>Enviar datos</button>
           </form>
         </Flex>
       )}

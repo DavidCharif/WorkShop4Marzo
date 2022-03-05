@@ -18,8 +18,11 @@ export const usersReducers = (state = initialState, action) => {
               users: state.users.filter(emp => emp.correo !== action.payload)
             }
         case typesUsers.edit:
+          
+          state[action.payload.id]= action.payload.user 
+          
             return{
-            ...state
+              ...state,
             }
         default:
             return state;
